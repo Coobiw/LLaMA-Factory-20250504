@@ -44,7 +44,13 @@ def generate_data(jsonl_path, prompt_str):
 
 
 def main():
-    query_format = '<image>What is your overall rating on the quality of this AI-generated picture with a textual prompt: {}? The rating should be a float between 1 and 5, rounded to two decimal places, with 1 representing very poor quality and 5 representing excellent quality. Return the final answer like: <answer> the score </answer>.'
+    query_format = """
+<image>What is your overall rating on the quality of this AI-generated picture with a textual prompt: {}?
+
+Think step by step about the perceptual quality of the image, considering clarity, color fidelity, contrast, texture, structural consistency, and realism, etc. Integrate these aspects to form a final quality judgment.
+
+The rating should be a float between 1 and 5, rounded to two decimal places, with 1 representing very poor quality and 5 representing excellent quality. Return the final answer like: <answer> the score </answer>.
+""".strip()
     
     trainset = Dataset.from_generator(generate_data, gen_kwargs={"jsonl_path": "/code/All-In-One/qbw/LLaMA-Factory-20250504/data/agiqa3k/annos_idx7/train.jsonl", "prompt_str": query_format})
     testset = Dataset.from_generator(generate_data, gen_kwargs={"jsonl_path": "/code/All-In-One/qbw/LLaMA-Factory-20250504/data/agiqa3k/annos_idx7/test.jsonl", "prompt_str": query_format})

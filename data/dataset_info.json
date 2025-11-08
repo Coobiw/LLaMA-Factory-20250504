@@ -1,4 +1,19 @@
 {
+  "ie4k_cot":{
+  "file_name": "ie4k_cot/gpt4o_cot_results.json",
+  "formatting": "sharegpt",
+  "columns": {
+    "messages": "messages",
+    "images": "images"
+  },
+  "tags": {
+    "role_tag": "role",
+    "content_tag": "content",
+    "user_tag": "user",
+    "assistant_tag": "assistant",
+    "system_tag": "system"
+  }
+  },
   "agiqa3k_idx0":{
   "file_name": "agiqa3k/annos_idx0/train.json",
   "formatting": "sharegpt",

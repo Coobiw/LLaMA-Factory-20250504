@@ -169,10 +169,10 @@ def extract_answer_from_response(response: str):
         return None
 
 if __name__ == "__main__":
-    model_ckpt_dir = "/code/All-In-One/qbw/LLaMA-Factory-20250504/saves/qwen2p5_vl-7b/full/ie4k_cot/checkpoint-141"
+    model_ckpt_dir = "/code/All-In-One/qbw/LLaMA-Factory-20250504/saves/qwen2p5_vl-7b/full/ie4k_single/checkpoint-141"
     
-    model_name = "qwen25vl_cot_e3"
-    cot = True
+    model_name = "qwen25vl_ie_single_direct_e3"
+    cot = False
     print(model_ckpt_dir)
     print(model_name)
     print(cot)
@@ -223,6 +223,13 @@ if __name__ == "__main__":
                 out = extract_answer_from_response(model_response.strip().rstrip("."))
             else:
                 out = float(model_response.strip().rstrip("."))
+            
+            # Skip if extraction failed (returned None)
+            if out is None:
+                error_count += 1
+                print(f"{i}th error:\t extraction returned None")
+                continue
+                
             y_out.append(out)
             y_label.append(float(item['mos_perception']))
         except Exception as e:
